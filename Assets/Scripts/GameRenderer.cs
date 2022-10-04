@@ -1,17 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameRenderer : MonoBehaviour {
     
-    private GameState _gameState;
     [SerializeField] private GameObject _cell;
+    [SerializeField] private GameObject _gameOverPanel;
+    [SerializeField] private Text _gameOverText;
+    
+    public GameState _gameState;
     private GameObject[,] _board;
     private bool _isPlayerTurn;
+
+    private AIContoller _aiContoller;
     
     private void Start() {
         _gameState = new GameState();
         _board = new GameObject[_gameState.width, _gameState.height];
+        _aiContoller = new AIContoller(this);
         
         SpawnGrid();
 
@@ -36,19 +44,40 @@ public class GameRenderer : MonoBehaviour {
     }
 
     private void EndTurn() {
+        if (_gameState.CheckForWinCondition(1)) {
+            _gameOverText.text = "You Won!";
+            GameOver();
+        }
+        else {
+            _aiContoller.RunAI();
+            
+            if (_gameState.CheckForWinCondition(2)) {
+                _gameOverText.text = "You Lost!";
+                GameOver();
+            }
+        }
         _isPlayerTurn = true;
-        if (_gameState.CheckForWinCondition(1)) Debug.Log("You Won");
+    }
+
+    private void GameOver() {
+        _gameOverPanel.SetActive(true);
+    }
+
+    public void PlayAgain() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void PlacePiece(int x, bool isPlayer) {
+        if (!_gameState.CheckSpace(x)) return;
+        int nY = _gameState.FindEmptyY(x);
+        _gameState.PlaceToken(x,isPlayer);
+        _board[x, nY].GetComponent<SpriteRenderer>().color = isPlayer ? Color.cyan : Color.magenta;
     }
 
     private void OnClickCell(Cell cell) {
         if (!_isPlayerTurn) return;
-        if (!_gameState.CheckSpace(cell.x)) return;
-        int y = _gameState.FindEmptyY(cell.x);
-        Debug.Log($"x {cell.x} y {y}");
-        _gameState.PlaceToken(cell.x,true);
-        _board[cell.x, y].GetComponent<SpriteRenderer>().color = Color.cyan;
+        PlacePiece(cell.x, true);
         _isPlayerTurn = false;
-        
         EndTurn();
     }
 }

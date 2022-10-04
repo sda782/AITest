@@ -39,6 +39,34 @@ public class GameState {
 
         return emptyY;
     }
+    
+    public bool IsWithinBounds(int x, int y) {
+        return x < width && y < height && x >= 0 && y >= 0;
+    }
+
+    public int GetNumberOfAdjacentAlly(int x, int y, bool isPlayer) {
+        int numberOfAllies = 0;
+        for (int i = x-1; i <= x+1; i++) {
+            for (int j = y-1; j <= y+1; j++) {
+                if (i == x && j == y) continue;
+                if (!IsWithinBounds(i,j)) continue;
+                if (board[i,j] == (isPlayer ? 2 : 1)) continue;
+                if (board[i,j] == (isPlayer ? 1 : 2)) numberOfAllies++;
+            }   
+        }
+        return numberOfAllies;
+    }
+
+    public float BoardFullness() {
+        float fullness = 0;
+
+        foreach (var space in board) {
+            if (space == 0) continue;
+            fullness++;
+        }
+        
+        return fullness/board.Length;
+    }
 
     public bool CheckForWinCondition(int player) {
         for (int j = 0; j<height-3 ; j++ ){
@@ -71,5 +99,18 @@ public class GameState {
             }
         }
         return false;
+    }
+
+    public int GetNumberOfAdjacentEnemies(int x, int y, bool isPlayer) {
+        int numberOfEnemies = 0;
+        for (int i = x-1; i < x+1; i++) {
+            for (int j = y-1; j < y+1; j++) {
+                if (i == x && j == y) continue;
+                if (!IsWithinBounds(i,j)) continue;
+                if (board[i,j] == (isPlayer ? 1 : 2)) continue;
+                if (board[i,j] == (isPlayer ? 2 : 1)) numberOfEnemies++;
+            }   
+        }
+        return numberOfEnemies;
     }
 }
