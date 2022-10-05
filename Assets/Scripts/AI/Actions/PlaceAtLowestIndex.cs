@@ -14,9 +14,7 @@ public class PlaceAtLowestIndex : IAction {
     public PlaceAtLowestIndex(GameRenderer gameRenderer) {
         _gameRenderer = gameRenderer;
         _gameState = _gameRenderer._gameState;
-        //_scoreCurve = gameRenderer._scoreIndex.Find(si => si.indexName == "PlaceAtLowestIndex").scoreCurve;
-        _scoreCurve = gameRenderer._scoreIndex.scores
-            .Find(score => score.actionType == AIActions.PLACE_AT_LOWEST_INDEX).scoreCurve;
+        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_AT_LOWEST_INDEX];
     }
     
     public void Act() {

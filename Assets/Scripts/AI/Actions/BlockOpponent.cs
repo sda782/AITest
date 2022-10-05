@@ -14,8 +14,7 @@ public class BlockOpponent : IAction {
     public BlockOpponent(GameRenderer gameRenderer) {
         _gameRenderer = gameRenderer;
         _gameState = _gameRenderer._gameState;
-        _scoreCurve = gameRenderer._scoreIndex.scores
-            .Find(score => score.actionType == AIActions.BLOCK_OPPONENT).scoreCurve;
+        _scoreCurve = _gameRenderer._scores[AIActions.BLOCK_OPPONENT];
     }
 
     public void Act() {

@@ -12,7 +12,7 @@ public class PlaceForWin : IAction {
     public PlaceForWin(GameRenderer gameRenderer) {
         _gameRenderer = gameRenderer;
         _gameState = _gameRenderer._gameState;
-        //_scoreCurve = gameRenderer._scoreIndex.Find(si => si.indexName == "PlaceForWin").scoreCurve;
+        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_FOR_WIN];
     }
 
     public void Act() {
@@ -31,7 +31,7 @@ public class PlaceForWin : IAction {
             }
         }
 
-        Debug.Log(win ? 1 : 0);
-        return win ? 1 : 0;
+        return _scoreCurve.Evaluate(win ? 1 : 0);
+        //return win ? 1 : 0;
     }
 }

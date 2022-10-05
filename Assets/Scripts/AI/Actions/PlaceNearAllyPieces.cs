@@ -15,8 +15,7 @@ public class PlaceNearAllyPieces : IAction {
     public PlaceNearAllyPieces(GameRenderer gameRenderer) {
         _gameRenderer = gameRenderer;
         _gameState = _gameRenderer._gameState;
-        _scoreCurve = gameRenderer._scoreIndex.scores
-            .Find(score => score.actionType == AIActions.PLACE_NEAR_ALLY_PIECES).scoreCurve;
+        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_NEAR_ALLY_PIECES];
     }
     public void Act() {
         Debug.Log("PlaceNearAllyPieces");
