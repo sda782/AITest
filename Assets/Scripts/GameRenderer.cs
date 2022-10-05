@@ -19,7 +19,7 @@ public class GameRenderer : MonoBehaviour {
     public Dictionary<AIActions, AnimationCurve> _scores;
 
     private void Start() {
-        
+        _scores = new Dictionary<AIActions, AnimationCurve>();
         foreach (var score in _scoreIndex.scores) {
             _scores.Add(score.actionType, score.scoreCurve);
         }

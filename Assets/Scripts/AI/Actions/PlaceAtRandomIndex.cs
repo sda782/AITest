@@ -18,7 +18,6 @@ public class PlaceAtRandomIndex : IAction {
     }
 
     public float Score() {
-        Debug.Log(_scoreCurve.Evaluate(_gameState.BoardFullness()));
         return _scoreCurve.Evaluate(_gameState.BoardFullness());
         //return (1 - _gameState.BoardFullness())*0.2f;
     }

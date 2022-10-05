@@ -25,7 +25,7 @@ public class PlaceForWin : IAction {
         
         for (int i = 0; i < _gameState.width; i++) {
             if (win) continue;
-            if (_gameState.CheckFor2InRow(i, false)) {
+            if (_gameState.CheckFor3InRow(i, false)) {
                 win = true;
                 _optimalXPosition = i;
             }

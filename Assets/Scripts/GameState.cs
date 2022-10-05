@@ -98,6 +98,43 @@ public class GameState {
 
         return false;
     }
+    
+    public bool CheckFor3InRow(int x, bool checkForPlayer) {
+        int y = FindEmptyY(x);
+        int playerInt = checkForPlayer ? 1 : 2;
+
+        if (IsWithinBounds(x-1,y) && IsWithinBounds(x+1,y) && IsWithinBounds(x+2,y)) {
+            if (board[x-1,y] == playerInt && board[x+1,y] == playerInt && board[x+2,y] == playerInt) {
+                return true;
+            }
+        }
+        
+        if (IsWithinBounds(x-1,y) && IsWithinBounds(x-2,y) && IsWithinBounds(x+1,y)) {
+            if (board[x-1,y] == playerInt && board[x-2,y] == playerInt && board[x+1,y] == playerInt) {
+                return true;
+            }
+        }
+
+        if (IsWithinBounds(x - 1, y) && IsWithinBounds(x - 2, y)&& IsWithinBounds(x - 3, y)) {
+            if (board[x - 1, y] == playerInt && board[x - 2, y] == playerInt&& board[x - 3, y] == playerInt) {
+                return true;
+            }
+        }
+
+        if (IsWithinBounds(x + 1, y) && IsWithinBounds(x + 2, y)&& IsWithinBounds(x + 3, y)) {
+            if (board[x + 1, y] == playerInt && board[x + 2, y] == playerInt&& board[x + 3, y] == playerInt) {
+                return true;
+            }
+        }
+        
+        if (IsWithinBounds(x, y-1) && IsWithinBounds(x, y-2)&& IsWithinBounds(x, y-3)) {
+            if (board[x, y-1] == playerInt && board[x, y-2] == playerInt && board[x, y-3] == playerInt) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
     public bool CheckForWinCondition(int player) {
         for (int j = 0; j<height-3 ; j++ ){
