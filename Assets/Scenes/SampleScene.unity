@@ -155,6 +155,7 @@ MonoBehaviour:
   _cell: {fileID: 3521329422788338583, guid: 3e9f1185740400b40997159449b8f452, type: 3}
   _gameOverPanel: {fileID: 1114940209}
   _gameOverText: {fileID: 799730855}
+  _scoreIndex: {fileID: 11400000, guid: 6f460b427ffee71449f7cb3be2232106, type: 2}
 --- !u!4 &29697673
 Transform:
   m_ObjectHideFlags: 0

@@ -15,7 +15,8 @@ public class GameRenderer : MonoBehaviour {
     private bool _isPlayerTurn;
 
     private AIContoller _aiContoller;
-    
+    public ScoreIndex _scoreIndex;
+
     private void Start() {
         _gameState = new GameState();
         _board = new GameObject[_gameState.width, _gameState.height];

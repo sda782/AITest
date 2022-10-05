@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class AIContoller {
+
     private readonly GameRenderer _gameRenderer;
     private readonly List<IAction> _actions;
 
@@ -36,5 +37,7 @@ public class AIContoller {
         _actions.Add(new PlaceNearAllyPieces(_gameRenderer));
         _actions.Add(new PlaceAtRandomIndex(_gameRenderer));
         _actions.Add(new PlaceNearEnemyPieces(_gameRenderer));
+        _actions.Add(new BlockOpponent(_gameRenderer));
+        _actions.Add(new PlaceForWin(_gameRenderer));
     }
 }

@@ -2,39 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceAtLowestIndex : IAction {
-
+public class BlockOpponent : IAction {
+    
     private readonly GameRenderer _gameRenderer;
     private readonly GameState _gameState;
-    
+
     private AnimationCurve _scoreCurve;
     
     private int _optimalXPosition;
-
-    public PlaceAtLowestIndex(GameRenderer gameRenderer) {
+    
+    public BlockOpponent(GameRenderer gameRenderer) {
         _gameRenderer = gameRenderer;
         _gameState = _gameRenderer._gameState;
-        //_scoreCurve = gameRenderer._scoreIndex.Find(si => si.indexName == "PlaceAtLowestIndex").scoreCurve;
         _scoreCurve = gameRenderer._scoreIndex.scores
-            .Find(score => score.actionType == AIActions.PLACE_AT_LOWEST_INDEX).scoreCurve;
+            .Find(score => score.actionType == AIActions.BLOCK_OPPONENT).scoreCurve;
     }
-    
+
     public void Act() {
-        Debug.Log("PlaceAtLowestIndex");
+        Debug.Log("BlockOpponent");
         _gameRenderer.PlacePiece(_optimalXPosition, false);
     }
 
     public float Score() {
-        int y = _gameState.height;
+        
+        bool block = false;
+        
         for (int i = 0; i < _gameState.width; i++) {
-            int nY = _gameState.FindEmptyY(i);
-            if (nY < y) {
-                y = nY;
+            if (block) continue;
+            if (_gameState.CheckFor2InRow(i, true)) {
+                block = true;
                 _optimalXPosition = i;
             }
         }
 
-        return _scoreCurve.Evaluate(_gameState.BoardFullness());
-        //return (1 - _gameState.BoardFullness())*0.2f;
+        return _scoreCurve.Evaluate(block ? 1 : 0);
+        //return block ? 1 : 0;
     }
 }

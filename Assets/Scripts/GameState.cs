@@ -40,7 +40,7 @@ public class GameState {
         return emptyY;
     }
     
-    public bool IsWithinBounds(int x, int y) {
+    private bool IsWithinBounds(int x, int y) {
         return x < width && y < height && x >= 0 && y >= 0;
     }
 
@@ -66,6 +66,37 @@ public class GameState {
         }
         
         return fullness/board.Length;
+    }
+
+    public bool CheckFor2InRow(int x, bool checkForPlayer) {
+        int y = FindEmptyY(x);
+        int playerInt = checkForPlayer ? 1 : 2;
+
+        if (IsWithinBounds(x-1,y) && IsWithinBounds(x+1,y)) {
+            if (board[x-1,y] == playerInt && board[x+1,y] == playerInt) {
+                return true;
+            }
+        }
+
+        if (IsWithinBounds(x - 1, y) && IsWithinBounds(x - 2, y)) {
+            if (board[x - 1, y] == playerInt && board[x - 2, y] == playerInt) {
+                return true;
+            }
+        }
+
+        if (IsWithinBounds(x + 1, y) && IsWithinBounds(x + 2, y)) {
+            if (board[x + 1, y] == playerInt && board[x + 2, y] == playerInt) {
+                return true;
+            }
+        }
+        
+        if (IsWithinBounds(x, y-1) && IsWithinBounds(x, y-2)) {
+            if (board[x, y-1] == playerInt && board[x, y-2] == playerInt) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public bool CheckForWinCondition(int player) {
