@@ -9,8 +9,7 @@ public class ScoreIndex : ScriptableObject {
 
     [System.Serializable]
     public struct Score {
-    public AIActions actionType;
-    public AnimationCurve scoreCurve;
-        
+        public AIActions actionType;
+        public AnimationCurve scoreCurve;
     }
 }

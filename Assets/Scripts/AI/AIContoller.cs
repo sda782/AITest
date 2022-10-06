@@ -14,14 +14,14 @@ public class AIContoller {
     }
 
     public void RunAI() {
-        DecideActionAndRun();
+        DecideActionAndRun(_actions);
     }
 
-    private void DecideActionAndRun() {
+    private void DecideActionAndRun(List<IAction> actions) {
         float currentHighScore = 0;
         IAction actionToRun = null;
 
-        foreach (var action in _actions) {
+        foreach (var action in actions) {
             float currentActionScore = action.Score();
             if (currentHighScore >= currentActionScore) continue;
 
@@ -35,9 +35,10 @@ public class AIContoller {
     private void SetUpActions() {
         //_actions.Add(new PlaceAtLowestIndex(_gameRenderer));
         //_actions.Add(new PlaceNearAllyPieces(_gameRenderer));
-        _actions.Add(new PlaceAtRandomIndex(_gameRenderer));
+        //_actions.Add(new PlaceAtRandomIndex(_gameRenderer));
         //_actions.Add(new PlaceNearEnemyPieces(_gameRenderer));
         _actions.Add(new BlockOpponent(_gameRenderer));
         _actions.Add(new PlaceForWin(_gameRenderer));
+        _actions.Add(new TestBucket(_gameRenderer));
     }
 }
