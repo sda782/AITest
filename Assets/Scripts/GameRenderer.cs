@@ -15,6 +15,7 @@ public class GameRenderer : MonoBehaviour {
     private bool _isPlayerTurn;
 
     private AIContoller _aiContoller;
+    [SerializeField] private List<IAction> _actions;
     [SerializeField] private ScoreIndex _scoreIndex;
     public Dictionary<AIActions, AnimationCurve> _scores;
 
@@ -47,8 +48,8 @@ public class GameRenderer : MonoBehaviour {
                 _board[x, y] = cellGameObject;
             }   
         }
-
-        transform.position = new Vector2(0 - _gameState.width / 2, 0 - _gameState.height / 2);
+        
+        transform.position = new Vector2(0 - _gameState.width / 2, 0.5f -  _gameState.height / 2);
     }
 
     private void EndTurn() {
@@ -84,6 +85,7 @@ public class GameRenderer : MonoBehaviour {
 
     private void OnClickCell(Cell cell) {
         if (!_isPlayerTurn) return;
+        if (!_gameState.CheckSpace(cell.x)) return;
         PlacePiece(cell.x, true);
         _isPlayerTurn = false;
         EndTurn();

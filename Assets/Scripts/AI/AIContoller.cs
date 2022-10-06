@@ -33,10 +33,10 @@ public class AIContoller {
     }
     
     private void SetUpActions() {
-        _actions.Add(new PlaceAtLowestIndex(_gameRenderer));
-        _actions.Add(new PlaceNearAllyPieces(_gameRenderer));
+        //_actions.Add(new PlaceAtLowestIndex(_gameRenderer));
+        //_actions.Add(new PlaceNearAllyPieces(_gameRenderer));
         _actions.Add(new PlaceAtRandomIndex(_gameRenderer));
-        _actions.Add(new PlaceNearEnemyPieces(_gameRenderer));
+        //_actions.Add(new PlaceNearEnemyPieces(_gameRenderer));
         _actions.Add(new BlockOpponent(_gameRenderer));
         _actions.Add(new PlaceForWin(_gameRenderer));
     }
