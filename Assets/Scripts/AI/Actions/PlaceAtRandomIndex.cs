@@ -1,16 +1,9 @@
 using UnityEngine;
 
-public class PlaceAtRandomIndex : IAction {
-    
-    private readonly GameRenderer _gameRenderer;
-    private readonly GameState _gameState;
-    
-    private AnimationCurve _scoreCurve;
+public class PlaceAtRandomIndex : BaseAction, IAction {
 
     public PlaceAtRandomIndex(GameRenderer gameRenderer) {
-        _gameRenderer = gameRenderer;
-        _gameState = _gameRenderer._gameState;
-        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_AT_RANDOM_INDEX];
+        SetUpVariables(gameRenderer,AIActions.PLACE_AT_RANDOM_INDEX);
     }
     public void Act() {
         Debug.Log("PlaceAtRandomIndex");

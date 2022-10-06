@@ -2,19 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockOpponent : IAction {
-    
-    private readonly GameRenderer _gameRenderer;
-    private readonly GameState _gameState;
+public class BlockOpponent : BaseAction, IAction {
 
-    private AnimationCurve _scoreCurve;
-    
-    private int _optimalXPosition;
-    
     public BlockOpponent(GameRenderer gameRenderer) {
-        _gameRenderer = gameRenderer;
-        _gameState = _gameRenderer._gameState;
-        _scoreCurve = _gameRenderer._scores[AIActions.BLOCK_OPPONENT];
+        SetUpVariables(gameRenderer,AIActions.BLOCK_OPPONENT);
     }
 
     public void Act() {
@@ -28,7 +19,7 @@ public class BlockOpponent : IAction {
         
         for (int i = 0; i < _gameState.width; i++) {
             if (block) continue;
-            if (_gameState.CheckFor2InRow(i, true)) {
+            if (_gameState.CheckFor3InRow(i, true)) {
                 block = true;
                 _optimalXPosition = i;
             }

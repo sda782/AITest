@@ -3,19 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlaceNearAllyPieces : IAction {
-    
-    private readonly GameRenderer _gameRenderer;
-    private readonly GameState _gameState;
-    
-    private readonly AnimationCurve _scoreCurve;
-    
-    private int _optimalXPosition;
+public class PlaceNearAllyPieces : BaseAction, IAction {
 
     public PlaceNearAllyPieces(GameRenderer gameRenderer) {
-        _gameRenderer = gameRenderer;
-        _gameState = _gameRenderer._gameState;
-        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_NEAR_ALLY_PIECES];
+        SetUpVariables(gameRenderer,AIActions.PLACE_NEAR_ALLY_PIECES);
     }
     public void Act() {
         Debug.Log("PlaceNearAllyPieces");

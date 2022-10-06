@@ -1,18 +1,9 @@
 using UnityEngine;
 
-public class PlaceForWin : IAction {
-    
-    private readonly GameRenderer _gameRenderer;
-    private readonly GameState _gameState;
-    
-    private AnimationCurve _scoreCurve;
-    
-    private int _optimalXPosition;
-    
+public class PlaceForWin : BaseAction, IAction {
+
     public PlaceForWin(GameRenderer gameRenderer) {
-        _gameRenderer = gameRenderer;
-        _gameState = _gameRenderer._gameState;
-        _scoreCurve = _gameRenderer._scores[AIActions.PLACE_FOR_WIN];
+        SetUpVariables(gameRenderer,AIActions.PLACE_FOR_WIN);
     }
 
     public void Act() {
