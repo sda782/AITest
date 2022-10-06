@@ -9,13 +9,13 @@ public class GameRenderer : MonoBehaviour {
     [SerializeField] private GameObject _cell;
     [SerializeField] private GameObject _gameOverPanel;
     [SerializeField] private Text _gameOverText;
+    [SerializeField] private Text _aiTime;
     
     public GameState _gameState;
     private GameObject[,] _board;
     private bool _isPlayerTurn;
 
     private AIContoller _aiContoller;
-    [SerializeField] private List<IAction> _actions;
     [SerializeField] private ScoreIndex _scoreIndex;
     public Dictionary<AIActions, AnimationCurve> _scores;
 
@@ -58,7 +58,10 @@ public class GameRenderer : MonoBehaviour {
             GameOver();
         }
         else {
+            var aiWatch = System.Diagnostics.Stopwatch.StartNew();
             _aiContoller.RunAI();
+            aiWatch.Stop();
+            _aiTime.text = $"AI process time: {aiWatch.ElapsedMilliseconds} ms";
             
             if (_gameState.CheckForWinCondition(2)) {
                 _gameOverText.text = "You Lost!";
